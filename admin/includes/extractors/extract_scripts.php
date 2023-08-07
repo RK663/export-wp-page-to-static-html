@@ -19,6 +19,9 @@ class extract_scripts
      */
     public function get_scripts($url="")
     {
+        if($this->admin->is_cancel_command_found()){
+            exit;
+        }
         $saveAllAssetsToSpecificDir = $this->admin->getSaveAllAssetsToSpecificDir();
         $src = $this->admin->site_data;
         $jsLinks = $src->find('script');
@@ -26,6 +29,9 @@ class extract_scripts
 
         if (!empty($jsLinks)) {
             foreach ($jsLinks as $key => $link) {
+                if($this->admin->is_cancel_command_found()){
+                    exit;
+                }
                 if (isset($link->src) && !empty($link->src)) {
                     $src_link = $link->src;
                     $src_link = html_entity_decode($src_link, ENT_QUOTES);

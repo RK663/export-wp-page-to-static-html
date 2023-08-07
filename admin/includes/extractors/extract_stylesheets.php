@@ -19,6 +19,9 @@ class extract_stylesheets
      */
     public function get_stylesheets($url="")
     {
+        if($this->admin->is_cancel_command_found()){
+            exit;
+        }
         $saveAllAssetsToSpecificDir = $this->admin->getSaveAllAssetsToSpecificDir();
         $src = $this->admin->site_data;
         $path_to_dot = $this->admin->rc_path_to_dot($url, true, true);
@@ -28,6 +31,9 @@ class extract_stylesheets
         if(!empty($cssLinks)){
 
             foreach ($cssLinks as $key => $link) {
+                if($this->admin->is_cancel_command_found()){
+                    exit;
+                }
                 if(isset($link->href) && !empty($link->href) ){
                     $href_link = $link->href;
                     $href_link = \html_entity_decode($href_link, ENT_QUOTES);

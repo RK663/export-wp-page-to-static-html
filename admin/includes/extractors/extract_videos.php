@@ -19,6 +19,9 @@ class extract_videos
      */
     public function get_videos($url="")
     {
+        if($this->admin->is_cancel_command_found()){
+            exit;
+        }
         $src = $this->admin->site_data;
         $videoLinks = $src->find('video');
         $sourceLinks = $src->find('source');
@@ -33,6 +36,9 @@ class extract_videos
             }
 
             foreach ($videoLinks as $link) {
+                if($this->admin->is_cancel_command_found()){
+                    exit;
+                }
                 if (isset($link->src) && !empty($link->src)) {
                     $src_link = $link->src;
                     $src_link = html_entity_decode($src_link, ENT_QUOTES);

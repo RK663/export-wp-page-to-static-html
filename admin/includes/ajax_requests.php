@@ -23,6 +23,7 @@ class EWPPTH_AjaxRequests
         include 'AjaxRequests/deleteExportedZipFile.php';
         include 'AjaxRequests/cancelRcExportProcess.php';
         include 'AjaxRequests/saveAdvancedSettings.php';
+        include 'AjaxRequests/submit-review.php';
     }
 
     public function initAjaxRequestsClass()
@@ -35,6 +36,7 @@ class EWPPTH_AjaxRequests
         new deleteExportedZipFile\initAjax;
         new cancelRcExportProcess\initAjax;
         new saveAdvancedSettings\initAjax;
+        new submitReview\initAjax;
 
     }
 

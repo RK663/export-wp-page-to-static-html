@@ -75,7 +75,8 @@ $(document).on("click", ".export_internal_page_to_html", function(e){
             'ftp': ftp,
             'path': path,
             'receive_email': receive_email,
-            'email_lists': email_lists
+            'email_lists': email_lists,
+            'time': Date.now()
         };
 
 
@@ -85,14 +86,16 @@ $(document).on("click", ".export_internal_page_to_html", function(e){
             type: 'post',
             //async: false,
             dataType: 'json',
+            cache: false,
 
             beforeSend: function(){
 
             },
             success: function(r){
                 if(r.success == 'true'){
-                    console.log(r)
-                    get_export_log_percentage(1000);
+                    setTimeout(function(){
+                        get_export_log_percentage(1000);
+                    }, 2000);
 
                 } else {
                     console.log('Something went wrong, please try again!');
@@ -107,3 +110,81 @@ $(document).on("click", ".export_internal_page_to_html", function(e){
         alert('Please select a page');
     }
 });
+
+jQuery(document).ready(function($) {
+    // Handle "Done!" button click
+    $(document).on('click', '#submit-review-done', function(e) {
+        e.preventDefault();
+
+        // Perform AJAX request
+        $.ajax({
+            url: ajaxurl,
+            method: 'POST',
+            data: {
+                action: 'ewpptsh_submit_review',
+                nonce: rcewpp.nonce,
+                type: 'done'
+            },
+            success: function(response) {
+                // Handle the success response
+                $('.export-html-review-notice').remove();
+                console.log('Review submitted successfully.');
+            },
+            error: function(xhr, status, error) {
+                // Handle the error response
+                console.log('Error submitting review:', error);
+            }
+        });
+    });
+
+    // Handle "Remind me later" button click
+    $(document).on('click', '#submit-remind-later', function(e) {
+        e.preventDefault();
+
+        // Perform AJAX request
+        $.ajax({
+            url: ajaxurl,
+            method: 'POST',
+            data: {
+                action: 'ewpptsh_submit_review',
+                nonce: rcewpp.nonce,
+                type: 'remind_later'
+            },
+            success: function(response) {
+                // Handle the success response
+                $('.export-html-review-notice').remove();
+                console.log('Remind me later request submitted successfully.');
+            },
+            error: function(xhr, status, error) {
+                // Handle the error response
+                console.log('Error submitting remind me later request:', error);
+            }
+        });
+    });
+
+    // Handle "Hide" button click
+    $(document).on('click', '#submit-hide', function(e) {
+        e.preventDefault();
+
+        // Perform AJAX request
+        $.ajax({
+            url: ajaxurl,
+            method: 'POST',
+            data: {
+                action: 'ewpptsh_submit_review',
+                nonce: rcewpp.nonce,
+                type: 'hide'
+            },
+            success: function(response) {
+                // Handle the success response
+                $('.export-html-review-notice').remove();
+                console.log('Hide request submitted successfully.');
+            },
+            error: function(xhr, status, error) {
+                // Handle the error response
+                console.log('Error submitting hide request:', error);
+            }
+        });
+    });
+});
+

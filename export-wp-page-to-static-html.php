@@ -16,7 +16,7 @@
  * Plugin Name:       Export WP Page to Static HTML/CSS
  * Plugin URI:        https://myrecorp.com
  * Description:       Export any WP Page to html and css very easily. 
- * Version:           2.1.6
+ * Version:           2.1.8
  * Author:            ReCorp
  * Author URI:        https://www.upwork.com/fl/rayhan1
  * License:           GPL-2.0+
@@ -37,7 +37,7 @@ if (!function_exists('run_export_wp_page_to_static_html_pro')){
      * Start at version 1.0.0 and use SemVer - https://semver.org
      * Rename this for your plugin and update it as you release new versions.
      */
-    define( 'EXPORT_WP_PAGE_TO_STATIC_HTML_VERSION', '2.1.6' );
+    define( 'EXPORT_WP_PAGE_TO_STATIC_HTML_VERSION', '2.1.8' );
 
 
 

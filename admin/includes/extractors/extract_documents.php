@@ -19,6 +19,9 @@ class extract_documents
      */
     public function get_documents($url="")
     {
+        if($this->admin->is_cancel_command_found()){
+            exit;
+        }
         $src = $this->admin->site_data;
         $documentHrefLinks = $src->find('a');
         $path_to_dot = $this->admin->rc_path_to_dot($url, true, true);
@@ -27,6 +30,9 @@ class extract_documents
 
         if (!empty($documentHrefLinks)){
             foreach ($documentHrefLinks as $link) {
+                if($this->admin->is_cancel_command_found()){
+                    exit;
+                }
                 if (isset($link->href) && !empty($link->href)) {
                     $src_link = $link->href;
                     $src_link = html_entity_decode($src_link, ENT_QUOTES);

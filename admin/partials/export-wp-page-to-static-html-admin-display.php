@@ -253,12 +253,46 @@
                                         <div class="p-t-15">
                                             <button class="btn btn--radius-2 btn--blue export_internal_page_to_html" type="submit"><?php _e('Export HTML', 'export-wp-page-to-static-html'); ?> <span class="spinner_x hide_spin"></span></button>
                                             <a class="cancel_rc_html_export_process" href="#">
-                                                Cancel
+                                                <?php _e('Cancel', 'export-wp-page-to-static-html'); ?>
                                             </a>
                                             <a href="" class="btn btn--radius-2 btn--green download-btn hide" type="submit" btn-text="<?php _e('Download the file', 'export-wp-page-to-static-html'); ?>"><?php _e('Download the file', 'export-wp-page-to-static-html'); ?></a>
                                             <a href="" class="view_exported_file hide" type="submit" target="_blank"><?php _e('View Exported File', 'export-wp-page-to-static-html'); ?></a>
+
+                                            <div class="error-notice" style="display: none;">
+                                                <p><?php _e('Something went wrong! please try again. If failed continously then contact us.', 'export-wp-page-to-static-html'); ?></p>
+                                            </div>
+
                                         </div>
                                     </form>
+
+                                    <?php
+                                        $dateToCheck = get_option('ewpptsh_next_review_status');  // Replace with your date or timestamp
+
+                                        // Calculate timestamp of 7 days ago
+                                        $sevenDaysAgo = time() - (7 * 24 * 60 * 60);
+                                    ?>
+                                    <?php if (get_option('ewpptsh_review_status', '')!=="done"&&get_option('ewpptsh_review_status', '')!=="hide"&&( (get_option('ewpptsh_review_status')=="later" && $dateToCheck < $sevenDaysAgo) || get_option('ewpptsh_review_status')=="")): ?>
+                                    <div class="export-html-review-notice" style="display: none;">
+                                       <p style="font-size: 18px;"></p><h2 style="margin: 0" class="title"><?php _e('Thank you for using our plugin!', 'export-wp-page-to-static-html'); ?> 💕 </h2><?php _e('<p>If you have a minute, can you write a <b><a target="_blank" href="https://wordpress.org/support/plugin/export-wp-page-to-static-html/reviews/?rate=5#new-post">little review</a></b> for me? That would <b>really</b> bring me joy and motivation! 💫 <br>Don\'t hesitate to <b>share your feature requests</b> with the review, I always check them and try my best.</p>', 'export-wp-page-to-static-html'); ?>
+                                        <div style="padding: 5px 0 12px 0;display: flex;align-items: center"><a target="_blank" class="button button-primary" style="margin-right: 10px" href="https://wordpress.org/support/plugin/export-wp-page-to-static-html/reviews/?rate=5#new-post">
+                                                ✏️ <?php _e('Write Review', 'export-wp-page-to-static-html'); ?>
+                                            </a>
+
+                                            <button id="submit-review-done" class="button button-secondary" style="margin-right: 10px;"> ✌️ <?php _e('Done!', 'export-wp-page-to-static-html'); ?></button>
+
+                                            <div style="flex: auto"></div>
+
+                                            <button id="submit-problem" class="button button-secondary" style="margin-right: 10px;">
+                                                ⚠ <a href="https://wordpress.org/support/plugin/export-wp-page-to-static-html/#new-post" target="_blank"><?php _e('I\'m having problem' , 'export-wp-page-to-static-html'); ?></a></button>
+
+                                            <button id="submit-remind-later" class="button button-secondary" style="margin-right: 10px;">⏰ <?php _e('Remind me later', 'export-wp-page-to-static-html'); ?></button>
+
+                                            <button id="submit-hide" class="button-link"><?php _e('Hide', 'export-wp-page-to-static-html'); ?></button>
+
+                                        </div>
+                                    </div>
+                                    <?php endif; ?>
+
                                 </div>
                                 <div class="tab-pane custom_links" id="tabs-2" role="tabpanel">
 

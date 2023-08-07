@@ -18,6 +18,9 @@ class inline_css
      */
     public function get_inline_css($url="")
     {
+        if($this->admin->is_cancel_command_found()){
+            exit;
+        }
         $host = $this->admin->get_host($url);
         $pathname_fonts = $this->admin->getFontsPath();
         $pathname_css = $this->admin->getCssPath();
@@ -33,6 +36,9 @@ class inline_css
         $stylesSrc = $src->find('style');
         if(!empty($stylesSrc)){
             foreach ($stylesSrc as $style) {
+                if($this->admin->is_cancel_command_found()){
+                    exit;
+                }
                 $data = $style->innertext;
 
                 preg_match_all("/(?<=url\().*?(?=\))/", $data, $images_links);
